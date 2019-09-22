@@ -1,0 +1,59 @@
+* {
+    padding : 0;
+    margin : 0;
+}
+
+html,body {
+    height : 100%;
+    background : #eee;
+}
+
+body {
+    font-family : Helvetica, sans-serif;
+    font-size : 1.4em;
+    font-weight : 400;
+}
+
+h1 {
+    font-size: 2.0em;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+a {
+    font-style : inherit;
+    text-decoration : inherit;
+    color : inherit;
+}
+
+#app {
+    position: relative;
+
+    margin : 1em auto;
+    width : 20em;
+}
+
+.links ul {
+    list-style: none;
+    width: 100%;
+}
+
+.links li {
+    display: block;
+    margin: 0.8em 0em;
+}
+
+.links li .date {
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+/* Smartphone */
+@media (max-width : 480px) {
+    #app {
+        width : auto;
+        padding : 1em;
+    }
+}
