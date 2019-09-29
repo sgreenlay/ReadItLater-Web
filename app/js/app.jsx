@@ -25,10 +25,16 @@ const schema = {
             }
         }
     `,
+    remove: gql`
+        mutation RemoveLink($url: String!) {
+            removeLink(
+                URL: $url
+            )
+        }
+    `,
 }
 
-function formatTime(str)
-{
+function formatTime(str) {
     return moment.utc(str).fromNow();
 }
 
@@ -45,10 +51,37 @@ class List extends React.Component {
 
                         data.links.forEach((link) => {
                             rows.push(
-                                <li key={link.URL}>
-                                    <a href={link.URL}>{link.Description}</a><br/>
-                                    <span className="date">{formatTime(link.Added)}</span>
-                                </li>
+                                <Mutation
+                                    key={link.URL}
+                                    mutation={schema.remove}
+                                    variables={{ url: link.URL }}
+                                    update={(store, { data: { remove } }) => {
+                                        const { links } = store.readQuery({ query: schema.query });
+                                        store.writeQuery({
+                                            query: schema.query,
+                                            data: {
+                                                links: links.filter(item => {
+                                                    return (item.URL != link.URL);
+                                                })
+                                            }
+                                        });
+                                    }}
+                                >
+                                    {removeLink => (
+                                        <li>
+                                            <a href={link.URL}>{link.Description}</a><br />
+                                            <ul className="actions">
+                                                <li className="date">{formatTime(link.Added)}</li>
+                                                <li className="delete">
+                                                    <a href="#" onClick={e => {
+                                                        e.preventDefault();
+                                                        removeLink();
+                                                    }}>delete</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    )}
+                                </Mutation>
                             );
                         });
 

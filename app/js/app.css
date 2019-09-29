@@ -45,9 +45,18 @@ a {
     margin: 0.8em 0em;
 }
 
-.links li .date {
+.links li .actions li {
+    display: inline;
     font-size: 0.8em;
+    margin: 0 0.4em 0 0;
+}
+
+.links li .actions .date {
     color: #aaa;
+}
+
+.links li .actions .delete {
+    color: #aa0000;
 }
 
 /* Smartphone */
